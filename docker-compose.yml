@@ -1,0 +1,32 @@
+version: '3'
+
+services:  
+  web:
+    container_name: fh_shoppinglist_www
+    build: ./shoppinglist
+    image: shoppinglist
+    env_file: 
+      - ./shoppinglist/.env
+    ports:
+      - "8081:80"
+    volumes:
+      - ./shoppinglist/www:/var/www/html
+    depends_on:
+      - db
+
+  # ports: should have host:target
+  # defining only target will make mysql pick a random host port
+  
+  # regarding networking: 
+  # docker allows other services be found by their name through DNS
+  # --> other containers can be connected to by their service name
+  db:
+    container_name: fh_shoppinglist_db
+    image: mysql
+    env_file:
+      - ./db/.env
+    ports:
+      - "6603:3306"
+    volumes:
+      - ./db/mnt:/var/lib/mysql
+      - ./db/dump.sql:/docker-entrypoint-initdb.d/dump.sql
