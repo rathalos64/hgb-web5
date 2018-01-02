@@ -1,17 +1,12 @@
 <?php
 
-namespace ShoppingList;
+namespace App;
 
 class SessionContext {
 	
 	private static $exists = false;
 	private static $sessionId = "3bda555e033d79fc552a";
 
-	/**
-	 * checkt ob eine session angelegt ist, wenn nicht, macht es das
-	 *
-	 * @return boolean
-	 */
 	public static function create() : bool {
 		if (!self::$exists) {
 

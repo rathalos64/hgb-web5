@@ -1,8 +1,13 @@
 <?php
 
-\ShoppingList\Route::get("/", "HomeController@welcome");
+App\Route::get("/", "IndexController@welcome");
 
 // auth routes
-\ShoppingList\Route::post("/auth/register", "AuthController@register");
-\ShoppingList\Route::post("/auth/login", "AuthController@login");
-\ShoppingList\Route::post("/auth/logout", "AuthController@logout");
+App\Route::post("/auth/register", "AuthController@register");
+App\Route::post("/auth/login", "AuthController@login");
+App\Route::post("/auth/logout", "AuthController@logout");
+
+// route with middleware
+$auth_middleware = "App\AuthenticationManager::check";
+
+App\Route::get("/home/dashboard", "HomeController@dashboard", $auth_middleware);

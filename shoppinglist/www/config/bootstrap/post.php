@@ -1,3 +1,3 @@
 <?php
 
-ShoppingList\SessionContext::create();
+App\SessionContext::create();

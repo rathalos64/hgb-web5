@@ -1,4 +1,4 @@
-<?php require_once("partials/header.php"); ?>
+<?php require_once(getenv("PROJECT_ROOT") . "/views/partials/header.php"); ?>
 
 <section class="hero">
 	<div class="hero-body">
@@ -13,7 +13,30 @@
 	</div>
 </section>
 
-<hr/>
+<hr>
+
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Organize</p>
+      <p class="title"><i class="fa fa-shopping-cart"></i></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Prioritize</p>
+      <p class="title"><i class="fa fa-balance-scale"></i></p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Finish tasks</p>
+      <p class="title"><i class="fa fa-edit"></i></p>
+    </div>
+  </div>
+</nav>
+
+<hr>
 
 <section class="section">
     <div class="container">
@@ -24,13 +47,17 @@
 		  
 			<div class="tile is-parent">
 				<div class="tile is-child">
-					<article class="tile is-child notification is-link">
-						<p class="title">pcmag.com says<p>
-						<p class="subtitle">
-							With a clean and simple UI and support for plenty of platforms, 
-							The Shoppinglist is one of the most feature-rich task management apps on the market. 
-							Users will be delighted how easy it is to manage your shopping tasks to efficiently.
-						</p>
+					<article class="tile is-child message is-link is-medium">
+						<div class="message-header">
+							<p>pcmag.com reviewed<p>
+						</div>
+						<div class="message-body">
+							<p>
+								With a clean and simple UI and support for plenty of platforms, 
+								The Shoppinglist is one of the most feature-rich task management apps on the market. 
+								Users will be delighted how easy it is to manage your shopping tasks to efficiently.
+							</p>
+						</div>
 					</article>
 				</div>
 			</div>
@@ -75,5 +102,4 @@
 	</div>
 </section>
 
-
-<?php require_once("partials/footer.php");
+<?php require_once(getenv("PROJECT_ROOT") . "/views/partials/footer.php"); ?>

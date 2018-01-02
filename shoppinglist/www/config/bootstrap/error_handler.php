@@ -9,7 +9,7 @@ set_error_handler(
     function ($errno, $errstr, $errfile = null, $errline = null, $errcontext = [])
     {
         chdir("/var/www/html");
-        ShoppingList\View::view("error.500", [
+        App\View::view("error.error", [
             "message" => "[$errno] $errstr in $errfile on line $errline",
         ]);
         // header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error", true, 500);
@@ -25,7 +25,7 @@ set_exception_handler(
     {
         // echo $exception->getMessage();
         chdir("/var/www/html");
-        ShoppingList\View::view("error.500", [
+        App\View::view("error.error", [
             "message" => $exception->getMessage(),
         ]);
         //header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error", true, 500);

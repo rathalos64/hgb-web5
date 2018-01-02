@@ -1,25 +1,30 @@
 <?php
 
-class AuthController 
-{
+namespace App\Controller;
+
+use \App\View;
+use \App\AuthenticationManager;
+
+class AuthController {
+	
 	function register() 
 	{
 		$username = $_POST["username"] ?? null;
 		$password = $_POST["password"] ?? null;
 
 		if ($username == null || $password == null) {
-			ShoppingList\View::view("welcome", [
+			View::view("welcome", [
 				"error" => "Registration: Fields must not be empty",
 			]);
 		}
 
-		if(!ShoppingList\AuthenticationManager::register($username, $password)) {
-			ShoppingList\View::view("welcome", [
+		if(!AuthenticationManager::register($username, $password)) {
+			View::view("welcome", [
 				"error" => "Registration: Username already taken",
 			]);
 		}
 
-		ShoppingList\View::redirect("/");
+		View::redirect("/home/dashboard");
 	}
 
 	function login() 
@@ -28,23 +33,23 @@ class AuthController
 		$password = $_POST["password"] ?? null;
 
 		if ($username == null || $password == null) {
-			ShoppingList\View::view("welcome", [
+			View::view("welcome", [
 				"error" => "Login: Fields must not be empty",
 			]);
 		}
 
-		if (!ShoppingList\AuthenticationManager::attempt($username, $password)) {
-			ShoppingList\View::view("welcome", [
+		if (!AuthenticationManager::attempt($username, $password)) {
+			View::view("welcome", [
 				"error" => "Login: Invalid username or password",
 			]);
 		}
 
-		ShoppingList\View::redirect("/");
+		View::redirect("/home/dashboard");
 	}
 
 	function logout()
 	{
-		ShoppingList\AuthenticationManager::logout();
-		ShoppingList\View::redirect("/");
+		AuthenticationManager::logout();
+		View::redirect("/");
 	}
 }

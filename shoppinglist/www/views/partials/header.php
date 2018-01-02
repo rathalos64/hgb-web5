@@ -1,19 +1,5 @@
 <?php
-require_once(getenv("PROJECT_ROOT") . "/config/bootstrap.php");
-
-$payload = ShoppingList\Utils::handlePayload(__FILE__, $_GET["payload"] ?? null); 
-
-// create all variables based on given payload
-foreach ($payload as $key => $value) {
-	${$key} = $value;
-}
-
-function e(string $string) : string {
-	return ShoppingList\Utils::escape($string);
-}
-
-$user = ShoppingList\AuthenticationManager::user();
-
+require_once(getenv("PROJECT_ROOT") . "/config/views/pre.php");
 ob_start();
 ?>
 
@@ -43,10 +29,18 @@ ob_start();
   </div>
 </div> -->
 <div class="navbar-brand">
-  <a class="navbar-item" href="/">
-  	<img src="/assets/images/logo.png" alt="The Shoppinglist" width="162" height="38">
-  </a>
-  <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+	
+	<?php if (!isset($user)): ?>
+		<a class="navbar-item" href="/">
+			<img src="/assets/images/logo.png" alt="The Shoppinglist" width="162" height="38">
+		</a>
+	<?php else: ?>
+		<a class="navbar-item" href="/home/dashboard">
+			<img src="/assets/images/logo.png" alt="The Shoppinglist" width="162" height="38">
+		</a>
+	<?php endif ?>
+  
+	<div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
 	<span></span>
 	<span></span>
 	<span></span>
@@ -128,21 +122,20 @@ ob_start();
 		
 		<?php else: ?>
 
-		<form action="/auth/logout" method="POST">
-			<form>
-				<div class="navbar-item">
+			<div class="navbar-item">
+				<form action="/auth/logout" method="POST">
 					<div class="field is-grouped">
 					<p class="control">
 						<button class="button is-primary is-medium">
 						<span class="icon">
-							<i class="fa fa-sign-in"></i>
+							<i class="fa fa-sign-out"></i>
 						</span>
 						<span>Logout</span>
 						</button>
 					</p>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 
 		<?php endif ?>
 
@@ -151,3 +144,14 @@ ob_start();
 </nav>
 
 <div class="container">
+
+<?php if (isset($error)): ?>
+<section class="section">
+	<div class="container">
+		<div class="notification is-danger">
+			<button class="delete"></button>
+			<strong><?= e($error) ?></strong>
+		</div>
+	</div>
+</section>
+<?php endif ?>

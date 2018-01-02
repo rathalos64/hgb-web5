@@ -1,6 +1,6 @@
 <?php
 
-namespace ShoppingList;
+namespace App;
 
 class View {
 
@@ -15,12 +15,6 @@ class View {
 		if (!file_exists($template)) {
 			throw new \Exception("View {$template} does not exist");
 		}
-
-		// verify that all fields in payload match
-		// the needed data in $template
-		// if (!Utils::templateVarMatch($template, $payload)) {
-		// 	throw new \Exception("Missing data for {$template}");
-		// }
 
 		// encode payload
 		$q = urlencode(base64_encode(serialize($payload)));

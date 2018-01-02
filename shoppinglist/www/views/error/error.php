@@ -1,4 +1,4 @@
-<?php require_once("../partials/header.php"); ?>
+<?php require_once(getenv("PROJECT_ROOT") . "/views/partials/header.php"); ?>
 
 <section class="section">
     <div class="container has-text-centered">
@@ -40,4 +40,4 @@
   </div>
 </div> -->
 
-<?php require_once("../partials/footer.php");
+<?php require_once(getenv("PROJECT_ROOT") . "/views/partials/footer.php"); ?>

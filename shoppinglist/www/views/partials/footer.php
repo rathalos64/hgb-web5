@@ -1,13 +1,3 @@
-<section class="section">
-<div class="container">
-<?php if (isset($error)): ?>
-	<div class="notification is-danger">
-		<button class="delete"></button>
-		<strong><?= e($error) ?></strong>
-	</div>
-<?php endif ?>
-</div>
-</section>
 </div>
 
 <footer class="footer">
@@ -30,7 +20,7 @@ var eventHandler = function (event) {
 		
 		// for all submit buttons
 		if (toggle.classList.contains("delete")) {
-			toggle.parentElement.remove()
+			toggle.parentElement.parentElement.parentElement.remove()
 		}
 	}
 };

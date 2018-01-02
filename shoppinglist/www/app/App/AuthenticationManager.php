@@ -1,6 +1,6 @@
 <?php
 
-namespace ShoppingList;
+namespace App;
 
 SessionContext::create();
 class AuthenticationManager {
