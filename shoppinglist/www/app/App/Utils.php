@@ -41,4 +41,71 @@ class Utils {
 		$uri = '/' . trim($uri, '/');
 		return $uri;
 	}
+
+	public static function getClientIp() : string
+	{
+		if (getenv("HTTP_CLIENT_IP")) {
+			return getenv("HTTP_CLIENT_IP");
+		} 
+		
+		if (getenv("HTTP_X_FORWARDED_FOR")) {
+			return getenv("HTTP_X_FORWARDED_FOR");
+		}
+
+		if(getenv("HTTP_X_FORWARDED")) {
+			return getenv("HTTP_X_FORWARDED");
+		}
+
+		if(getenv("HTTP_FORWARDED_FOR")) {
+			return getenv("HTTP_FORWARDED_FOR");
+		}
+
+		if(getenv("HTTP_FORWARDED")) {
+		   return getenv("HTTP_FORWARDED");
+		}
+
+		if(getenv("REMOTE_ADDR")) {
+			return getenv("REMOTE_ADDR");
+		}
+
+		return "UNKNOWN";
+	}
+
+	public static function getUserAgent() : string
+	{
+		if (getenv("HTTP_USER_AGENT")) {
+			return getenv("HTTP_USER_AGENT");
+		}
+
+		return "UNKNOWN";
+	}
+
+	public static function getBrowser(string $userAgent) : string 
+	{
+		if (strpos($userAgent, "Opera") || strpos($userAgent, "OPR/")) { return "Opera"; }
+		if (strpos($userAgent, "Edge")) { return "Edge"; }
+		if (strpos($userAgent, "Chrome")) { return "Chrome"; }
+		if (strpos($userAgent, "Safari")) { return "Safari"; }
+		if (strpos($userAgent, "Firefox")) { return "Firefox"; }
+		if (strpos($userAgent, "MSIE") || strpos($userAgent, "Trident/7")) { return "Internet Explorer"; }
+	   
+		return "UNKNOWN";
+	}
+
+	public static function listStateToDisplay(int $state) : string
+	{
+		if ($state == Model\Liste::STATE_FINISHED) {
+			return "No articles left. Everything is bought";
+		}
+
+		if ($state == Model\Liste::STATE_LEFT_ARTICLES) {
+			return "unprocessed articles left";
+		}
+
+		if ($state == Model\Liste::STATE_NO_ARTICLES) {
+			return "No articles yet. Empty list";
+		}
+
+		return "UNKNOWN";
+	}
 }

@@ -6,7 +6,7 @@ SessionContext::create();
 class AuthenticationManager {
 
 	public static function attempt(string $username, string $password) : bool {
-		$user = DataManager::getUserByUsername($username);
+		$user = Model\User::getByUsername($username);
 		if ($user === null) {
 			return false;
 		}
@@ -20,14 +20,16 @@ class AuthenticationManager {
 	}
 
 	public static function register(string $username, string $password) {
-		$user = DataManager::getUserByUsername($username);
+		$user = Model\User::getByUsername($username);
 		if ($user != null) {
 			return false;
 		}
 
-		DataManager::createUser($username, password_hash($password, PASSWORD_BCRYPT));
-		self::attempt($username, $password);
-		
+		$dto = Model\User::buildDTO([
+			"username" => $username, 
+			"password" => password_hash($password, PASSWORD_BCRYPT)
+		]);
+		Model\User::create($dto);
 		return true;
 	}
 
@@ -40,7 +42,7 @@ class AuthenticationManager {
 	}
 
 	public static function user()  {
-		return self::check() ? DataManager::getUserById($_SESSION['user']) : null;
+		return self::check() ? Model\User::getById($_SESSION['user']) : null;
 	}
 
 	public static function id() {

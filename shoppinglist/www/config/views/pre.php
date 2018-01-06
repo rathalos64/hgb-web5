@@ -11,3 +11,5 @@ foreach ($payload as $key => $value) {
 function e(string $string) : string {
 	return App\Utils::escape($string);
 }
+
+$user = App\AuthenticationManager::user();

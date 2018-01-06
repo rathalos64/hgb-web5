@@ -9,6 +9,16 @@
 				The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
 			</p>
 		</div>
+		<div class="content has-text-centered">
+			<p>
+				Made with ♥ and Wiener Schnitzel
+			</p>
+		</div>
+		<div class="content has-text-centered">
+			<p>
+				<strong>Note</strong>: the use of the color cyan on this site is given default by the framework and does not stand in affiliation with any political party
+			</p>
+		</div>
 	</div>
 </footer>
 

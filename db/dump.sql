@@ -9,7 +9,6 @@ CREATE TABLE article (
 	description varchar(255) NOT NULL,
 	state int NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE KEY (title)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8;;
 
 CREATE TABLE list (
@@ -17,9 +16,10 @@ CREATE TABLE list (
 	userId int(11) NOT NULL,
 	title varchar(255) NOT NULL,
 	description varchar(255) NOT NULL,
+	state int NOT NULL,
 	numberOfArticles int NOT NULL,
+	unfinishedArticles int NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE KEY (title)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8;;
 
 CREATE TABLE user (
@@ -30,11 +30,13 @@ CREATE TABLE user (
 	UNIQUE KEY (username)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8;;
 
-CREATE TABLE userAction (
+CREATE TABLE audit (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	username varchar(255) NOT NULL,
+	action varchar(255) NOT NULL,
 	ip varchar(255) NOT NULL,
-	created_at timestamp NOT NULL,
+	userAgent varchar(255) NOT NULL,
+	created_at int NOT NULL,
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8;;
 

@@ -51,6 +51,11 @@ class DataManager {
 		return $cursor->fetchObject();
 	}
 
+	private static function fetchAll($cursor)
+	{
+		return $cursor->fetchAll();
+	}
+
 	private static function close($cursor) 
 	{
 		$cursor->closeCursor();
@@ -61,78 +66,44 @@ class DataManager {
 		self::$__connection = null;
 	}
 
-	public static function createUser($username, $password) : int 
+	public static function create($query, $params) : int
 	{
 		$con = self::getConnection();
 	
 		// necessary for correct Exception to enable rollback
 		$con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-	
 		$con->beginTransaction();
 	
 		try {
-
-		  self::query(
-			  $con, 
-			  "INSERT INTO user (username, password) VALUES (?, ?);", 
-			  [$username, $password]);
-
-		  $userId = self::lastInsertId($con);
-		  $con->commit();
-		
+			self::query($con, $query, $params);
+			$id = self::lastInsertId($con);
+			$con->commit();
 		} catch (\Exception $e) {
 	
-		  // one of the queries failed - complete rollback
-		  $con->rollBack();
-		  self::closeConnection($con);
+			// one of the queries failed - complete rollback
+			$con->rollBack();
+			self::closeConnection($con);
 
-		  throw $e;
-		  return null;
+			throw $e;
+			return null;
 		}
 
 		self::closeConnection($con);
-		return $userId;
-	  }
+		return $id;
+	}
 
-	  public static function getUserById($id) 
-	  {
+	public static function get($query, $params, $model) 
+	{
 		$con = self::getConnection();
+		$res = self::query($con, $query, $params);
 		
-		$res = self::query($con, "
-		  SELECT id, username, password 
-		  FROM user
-		  WHERE id = ?;
-		  ", [$id]);
-		
-		  if ($fetched = self::fetchObject($res)) {
-			self::close($res);
-			self::closeConnection($con);
-			return Model\User::buildUser($fetched);
-		  }
-		
+		$objects = [];
+		while ($fetched = self::fetchObject($res)) {
+			array_push($objects, $model::buildBO($fetched));
+		}
+
 		self::close($res);
 		self::closeConnection($con);
-		return null;
-	  }
-
-	  public static function getUserByUsername($username) 
-	  {
-		$con = self::getConnection();
-		
-		$res = self::query($con, "
-		  SELECT id, username, password 
-		  FROM user
-		  WHERE username = ?;
-		  ", [$username]);
-		
-		  if ($fetched = self::fetchObject($res)) {
-			self::close($res);
-			self::closeConnection($con);
-			return Model\User::buildUser($fetched);
-		  }
-		
-		self::close($res);
-		self::closeConnection($con);
-		return null;
-	  }
+		return $objects;
+	}
 }
