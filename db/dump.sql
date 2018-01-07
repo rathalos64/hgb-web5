@@ -1,4 +1,4 @@
-DROP DATABASE fh_shoppinglist;
+DROP DATABASE IF EXISTS fh_shoppinglist;
 CREATE DATABASE fh_shoppinglist;
 USE fh_shoppinglist;
 
