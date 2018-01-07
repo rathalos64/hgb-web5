@@ -106,4 +106,55 @@ class DataManager {
 		self::closeConnection($con);
 		return $objects;
 	}
+
+	public static function update($query, $params) : int
+	{
+		$con = self::getConnection();
+	
+		// necessary for correct Exception to enable rollback
+		$con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$con->beginTransaction();
+	
+		try {
+			self::query($con, $query, $params);
+			$id = self::lastInsertId($con);
+			$con->commit();
+		} catch (\Exception $e) {
+	
+			// one of the queries failed - complete rollback
+			$con->rollBack();
+			self::closeConnection($con);
+
+			throw $e;
+			return null;
+		}
+
+		self::closeConnection($con);
+		return $id;
+	}
+
+	public static function delete($query, $params)
+	{
+		$con = self::getConnection();
+	
+		// necessary for correct Exception to enable rollback
+		$con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$con->beginTransaction();
+	
+		try {
+			self::query($con, $query, $params);
+			$con->commit();
+		} catch (\Exception $e) {
+	
+			// one of the queries failed - complete rollback
+			$con->rollBack();
+			self::closeConnection($con);
+
+			throw $e;
+			return null;
+		}
+
+		self::closeConnection($con);
+		return null;
+	}
 }

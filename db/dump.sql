@@ -5,21 +5,21 @@ USE fh_shoppinglist;
 CREATE TABLE article (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	listId int(11) NOT NULL,
-	title varchar(255) NOT NULL,
+	title varchar(50) NOT NULL,
 	description varchar(255) NOT NULL,
 	state int NOT NULL,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8;;
 
 CREATE TABLE list (
 	id int(11) NOT NULL AUTO_INCREMENT,
 	userId int(11) NOT NULL,
-	title varchar(255) NOT NULL,
+	title varchar(30) NOT NULL,
 	description varchar(255) NOT NULL,
 	state int NOT NULL,
 	numberOfArticles int NOT NULL,
-	unfinishedArticles int NOT NULL,
-	PRIMARY KEY (id),
+	finishedArticles int NOT NULL,
+	PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8;;
 
 CREATE TABLE user (

@@ -33,6 +33,16 @@ var eventHandler = function (event) {
 			toggle.parentElement.parentElement.parentElement.remove()
 		}
 	}
+
+	if (toggle.id === "edit") {
+		document.getElementById("active").style.display = "none";
+		document.getElementById("inactive").style.display = "";
+	}
+
+	if (toggle.id === "edit-end") {
+		document.getElementById("active").style.display = "";
+		document.getElementById("inactive").style.display = "none";
+	}
 };
 
 document.addEventListener("click", eventHandler);

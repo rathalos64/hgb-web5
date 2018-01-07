@@ -21,6 +21,8 @@ class AuthController {
 			]);
 		}
 
+		// -- length constraint --
+
 		if(!AuthenticationManager::register($username, $password)) {
 			View::view("welcome", [
 				"error" => "Registration: Username already taken",

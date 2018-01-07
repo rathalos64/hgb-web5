@@ -8,6 +8,15 @@ class Audit extends Entity {
   const ACTION_LOGOUT = "logout";
   const ACTION_REGISTER = "register";
 
+  const ACTION_ADD_LIST = "add_list";
+  const ACTION_DELETE_LIST = "delete_list";
+  const ACTION_EDIT_LIST = "edit_list";
+
+  const ACTION_ADD_ARTICLE = "add_article";
+  const ACTION_DELETE_ARTICLE = "delete_article";
+  const ACTION_FINISH_ARTICLE = "finish_article";
+  const ACTION_UNFINISH_ARTICLE = "unfinish_article";
+
   private $username;
   private $action;
   private $ip;
@@ -78,7 +87,7 @@ class Audit extends Entity {
 
   public static function getAll(string $username)
   {
-    $query = "SELECT id, username, action, ip, userAgent, created_at FROM audit WHERE username = ?";
+    $query = "SELECT id, username, action, ip, userAgent, created_at FROM audit WHERE username = ? ORDER BY created_at DESC";
     return \App\DataManager::get($query, [$username], "\App\Model\Audit");
   }
 }

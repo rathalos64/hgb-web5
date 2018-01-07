@@ -33,7 +33,7 @@ class HomeController {
 		}
 
 		$pages = ceil(count($audits) / HomeController::PAGINATION);
-		$paginated = array_splice($audits, ($page - 1) * HomeController::PAGINATION, $page * HomeController::PAGINATION);
+		$paginated = array_slice($audits, ($page - 1) * HomeController::PAGINATION, HomeController::PAGINATION);
 
 		View::view("home.audit", [
 			"audits" => $paginated,

@@ -108,4 +108,38 @@ class Utils {
 
 		return "UNKNOWN";
 	}
+
+	public static function listStateToDisplayShort(int $state) : string
+	{
+		if ($state == Model\Liste::STATE_FINISHED) {
+			return "Finished";
+		}
+
+		if ($state == Model\Liste::STATE_LEFT_ARTICLES) {
+			return "Unfinished";
+		}
+
+		if ($state == Model\Liste::STATE_NO_ARTICLES) {
+			return "Empty";
+		}
+
+		return "UNKNOWN";
+	}
+
+	public static function listStateToColor(int $state) : string
+	{
+		if ($state == Model\Liste::STATE_FINISHED) {
+			return "success";
+		}
+
+		if ($state == Model\Liste::STATE_LEFT_ARTICLES) {
+			return "warning";
+		}
+
+		if ($state == Model\Liste::STATE_NO_ARTICLES) {
+			return "light";
+		}
+
+		return "UNKNOWN";
+	}
 }
