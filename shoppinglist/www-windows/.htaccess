@@ -1,0 +1,10 @@
+RewriteEngine On
+# redirect not existing routes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# redirect POST request with data
+RewriteCond %{REQUEST_METHOD} POST
+RewriteCond %{REQUEST_URI} !^/index\.php$ 
+RewriteRule ^(.*)$ http://%{HTTP_HOST}/index.php [L,R=307]
+
