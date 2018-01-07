@@ -7,7 +7,6 @@ class Config {
 	const DEFAULT = true;
 
 	const ENV = [
-		"PROJECT_ROOT",
 		"MYSQL_HOST",
 		"MYSQL_DB",
 		"MYSQL_USER",
@@ -15,7 +14,6 @@ class Config {
 	];
 
 	const ENV_DEFAULT = [
-		"PROJECT_ROOT" => "C:/xampp/htdocs",
 		"MYSQL_HOST" => "localhost",
 		"MYSQL_DB" => "fh_shoppinglist",
 		"MYSQL_USER" => "root",
